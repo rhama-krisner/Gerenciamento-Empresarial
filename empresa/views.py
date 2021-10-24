@@ -1,8 +1,16 @@
-from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework import viewsets
 
+from .models import Projeto, Funcionarios, Departamento
+from .serializers import ProjetoSerializer, FuncionariosSerializer, DepartamentoSerializer
 
-@api_view(['GET'])
-def empresa(request):
-    return Response({'status':200, 'message':'Olá mundo' })
+class Projeto(viewsets.ModelViewSet):
+    queryset = Projeto.objects.all()
+    serializer_class = ProjetoSerializer
+
+class Funcionarios(viewsets.ModelViewSet):
+    queryset = Funcionarios.objects.all()
+    serializer_class = FuncionariosSerializer
+
+class Departamento(viewsets.ModelViewSet):
+    queryset = Departamento.objects.all()
+    serializer_class = DepartamentoSerializer
