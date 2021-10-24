@@ -16,7 +16,6 @@ class ProjetoSerializer(serializers.ModelSerializer):
         'ultimo_calculo_de_horas')
 
 class FuncionariosSerializer(serializers.ModelSerializer):
-    status_code = serializers.IntegerField(source='status.status_code', read_only=True)
     class Meta:
         model = Funcionarios
         fields = ('id', 'nome','cpf','rg','sexo','data_nascimento',
