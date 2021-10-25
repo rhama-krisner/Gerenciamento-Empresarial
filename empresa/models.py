@@ -15,6 +15,7 @@ class Projeto(models.Model):
     prazo = models.DateField(blank=False, null=False)
     horas_realizadas = models.IntegerField(null=False, blank=False)
     ultimo_calculo_de_horas = models.IntegerField(blank=False, null=False)
+    departamento = models.ForeignKey(Departamento, related_name='projeto', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
@@ -40,7 +41,8 @@ class Funcionarios(models.Model):
     cnh = models.CharField(max_length=3, choices=CNH_CHOICE, blank=False, null=False)
     salario = models.FloatField(blank=False, null=False)
     carga_horaria = models.IntegerField(blank=False, null=False)
-    projeto = ManyToManyField(Projeto)
+    projeto = models.ForeignKey(Projeto, related_name='funcionarios', on_delete=models.CASCADE)
+    departamento = models.ForeignKey(Departamento, related_name='funcionarios', on_delete=models.CASCADE)
 
 
     def __str__(self):
