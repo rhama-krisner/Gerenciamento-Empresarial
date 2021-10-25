@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.fields.related import ManyToManyField
 
 class Departamento(models.Model):
     id = models.AutoField(primary_key=True)
@@ -8,8 +7,8 @@ class Departamento(models.Model):
     def __str__(self):
         return self.nome
 
-
 class Projeto(models.Model):
+    departamento = models.ForeignKey(Departamento, related_name='projeto', on_delete=models.CASCADE)
 
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=30, unique=True, blank=False, null=False)
@@ -21,7 +20,10 @@ class Projeto(models.Model):
     def __str__(self):
         return self.nome
 
+
 class Funcionarios(models.Model):
+    projeto = models.ForeignKey(Projeto, related_name='funcionarios', on_delete=models.CASCADE)
+    departamento = models.ForeignKey(Departamento, related_name='funcionarios', on_delete=models.CASCADE)
 
     CNH_CHOICE = (
         ('Sim','Sim'),
@@ -43,11 +45,12 @@ class Funcionarios(models.Model):
     cnh = models.CharField(max_length=3, choices=CNH_CHOICE, blank=False, null=False)
     salario = models.FloatField(blank=False, null=False)
     carga_horaria = models.IntegerField(blank=False, null=False)
-    projeto = models.ForeignKey(Projeto, related_name='funcionarios', on_delete=models.CASCADE)
+
 
 
     def __str__(self):
         return self.nome
+
 
 
     
