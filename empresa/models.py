@@ -4,12 +4,13 @@ class Departamento(models.Model):
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=50, unique=True)
 
+    class Meta:
+        ordering = ['nome']
+
     def __str__(self):
         return self.nome
 
 class Projeto(models.Model):
-    departamento = models.ForeignKey(Departamento, related_name='projeto', on_delete=models.CASCADE)
-
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=30, unique=True, blank=False, null=False)
     horas = models.IntegerField(null=False, blank=False)
@@ -17,13 +18,12 @@ class Projeto(models.Model):
     horas_realizadas = models.IntegerField(null=False, blank=False)
     ultimo_calculo_de_horas = models.IntegerField(blank=False, null=False)
 
+
     def __str__(self):
         return self.nome
 
 
 class Funcionarios(models.Model):
-    projeto = models.ForeignKey(Projeto, related_name='funcionarios', on_delete=models.CASCADE)
-    departamento = models.ForeignKey(Departamento, related_name='funcionarios', on_delete=models.CASCADE)
 
     CNH_CHOICE = (
         ('Sim','Sim'),
@@ -46,7 +46,9 @@ class Funcionarios(models.Model):
     salario = models.FloatField(blank=False, null=False)
     carga_horaria = models.IntegerField(blank=False, null=False)
 
-
+    projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
+    departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
+    
 
     def __str__(self):
         return self.nome
