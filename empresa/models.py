@@ -1,5 +1,5 @@
 from django.db import models
-#from django.db.models import CASCADE
+from django.db.models import CASCADE
 
 class Departamento(models.Model):
     id = models.AutoField(primary_key=True)
@@ -48,10 +48,7 @@ class Funcionarios(models.Model):
     cnh = models.CharField(max_length=3, choices=CNH_CHOICE, blank=False, null=False)
     salario = models.FloatField(blank=False, null=False)
     carga_horaria = models.IntegerField(blank=False, null=False)
-
-    projeto = models.ForeignKey(Projeto, on_delete=models.CASCADE)
-    departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
-    
+   
 
     def __str__(self):
         return self.nome
