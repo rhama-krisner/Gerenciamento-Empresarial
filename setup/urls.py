@@ -6,8 +6,8 @@ from empresa import views
 
 router = routers.DefaultRouter()
 
-router.register(r'projeto', views.ProjetoView)
 router.register(r'departamento', views.DepartamentoView)
+router.register(r'projeto', views.ProjetoView)
 router.register(r'funcionarios',views.Funcionarios)
 
 urlpatterns = [
