@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import CASCADE
+#from django.db.models import CASCADE
 
 class Departamento(models.Model):
     id = models.AutoField(primary_key=True)
@@ -18,7 +18,8 @@ class Projeto(models.Model):
     prazo = models.DateField(blank=False, null=False)
     horas_realizadas = models.IntegerField(null=False, blank=False)
     ultimo_calculo_de_horas = models.IntegerField(blank=False, null=False)
-    departamento = models.ManyToManyField('Departamento', related_name='projeto')
+
+    departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE ,related_name='projeto')
 
 
     def __str__(self):
