@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models import CASCADE
 
 class Departamento(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.AutoField(default=0, primary_key=True)
     nome = models.CharField(max_length=50, unique=True)
 
     class Meta:
@@ -50,8 +50,4 @@ class Funcionarios(models.Model):
    
 
     def __str__(self):
-        return self.nome
-
-
-
-    
+        return self.nome    
