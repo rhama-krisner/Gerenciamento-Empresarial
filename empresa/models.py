@@ -19,8 +19,7 @@ class Projeto(models.Model):
     horas_realizadas = models.IntegerField(null=False, blank=False)
     ultimo_calculo_de_horas = models.IntegerField(blank=False, null=False)
 
-    departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE ,related_name='projeto')
-
+    departamento = models.ForeignKey(Departamento,related_name='projeto' ,on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
