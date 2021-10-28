@@ -12,7 +12,7 @@ class Departamento(models.Model):
         return self.nome
 
 class Projeto(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.AutoField(default=0, primary_key=True)
     nome = models.CharField(max_length=30, unique=True, blank=False, null=False)
     horas = models.IntegerField(null=False, blank=False)
     prazo = models.DateField(blank=False, null=False)
@@ -38,7 +38,7 @@ class Funcionarios(models.Model):
         ('Nenhum', 'Não Informar')
     )
 
-    id = models.AutoField(primary_key=True)
+    id = models.AutoField(default=0, primary_key=True)
     nome = models.CharField(max_length=255, blank=False, null=False, unique=True)
     cpf = models.IntegerField(blank=False, null=False, unique=True)
     rg = models.CharField(max_length=20, blank=False, null=False)
