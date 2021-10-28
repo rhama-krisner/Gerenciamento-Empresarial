@@ -1,19 +1,41 @@
+from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .models import Departamento, Projeto, Funcionarios
+from .serializers import DepartamentoSerializer, ProjetoSerializer, FuncionariosSerializer
 
-from .models import Projeto, Departamento, Funcionarios
-from .serializers import ProjetoSerializer, DepartamentoSerializer, FuncionariosSerializer
+@api_view(['GET','POST'])
+def funcionario_list(request):
+    if request.method =='GET':
+        funcionario = Funcionarios.objects.all()
+        serializer = FuncionariosSerializer(funcionario, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = FuncionariosSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-from rest_framework import viewsets
+@api_view(['GET','PUT','DELETE'])
+def funcionario_detail(request, pk):
+    try:
+        funcionario = Funcionarios.objects.get(pk=pk)
+    except Funcionarios.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-class ProjetoView(viewsets.ModelViewSet):
-    queryset = Projeto.objects.all()
-    serializer_class = ProjetoSerializer
+    if request.method == 'GET':
+        serializer = FuncionariosSerializer(funcionario)
+        return Response(serializer.data)
+    
+    elif request.method == 'PUT':
+        serializer = FuncionariosSerializer(funcionario, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        funcionario.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-class DepartamentoView(viewsets.ModelViewSet):
-    queryset = Departamento.objects.all()
-    serializer_class = DepartamentoSerializer
-
-
-class Funcionarios(viewsets.ModelViewSet):
-    queryset = Funcionarios.objects.all()
-    serializer_class = FuncionariosSerializer
