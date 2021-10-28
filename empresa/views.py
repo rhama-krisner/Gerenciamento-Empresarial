@@ -4,12 +4,14 @@ from rest_framework.response import Response
 from .models import Departamento, Projeto, Funcionarios
 from .serializers import DepartamentoSerializer, ProjetoSerializer, FuncionariosSerializer
 
+#Funcionarios
 @api_view(['GET','POST'])
 def funcionario_list(request):
     if request.method =='GET':
         funcionario = Funcionarios.objects.all()
         serializer = FuncionariosSerializer(funcionario, many=True)
         return Response(serializer.data)
+        
     elif request.method == 'POST':
         serializer = FuncionariosSerializer(data=request.data)
         if serializer.is_valid():
@@ -39,3 +41,71 @@ def funcionario_detail(request, pk):
         funcionario.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+#Projeto
+@api_view(['GET','POST'])
+def projeto_list(request):
+    if request.method == 'GET':
+        projeto = Projeto.objects.all()
+        serializer = ProjetoSerializer(projeto, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = ProjetoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','PUT','DELETE'])
+def projeto_detail(request, pk):
+    try:
+        projeto = Projeto.objects.get(pk=pk)
+    except Projeto.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = ProjetoSerializer(projeto)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = ProjetoSerializer(projeto, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        projeto.delete()
+        return Response(status.HTTP_204_NO_CONTENT)
+
+#Departamento
+@api_view(['GET','POST'])
+def departamento_list(request):
+    if request.method == 'GET':
+        departamento = Departamento.objects.all()
+        serializer = DepartamentoSerializer(departamento, many=True)
+        return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        serializer = DepartamentoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET','PUT','DELETE'])
+def departamento_detail(request, pk):
+    try:
+        departamento = Departamento.objects.get(pk=pk)
+    except Departamento.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = DepartamentoSerializer(departamento, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+    
+    elif request.method == 'DELETE':
+        departamento.delete()
