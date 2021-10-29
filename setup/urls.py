@@ -1,19 +1,15 @@
 from django.contrib import admin
-from django.urls import path, include
-from rest_framework import routers
-
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
 from empresa import views
-
-router = routers.DefaultRouter()
-
-router.register(r'departamento', views.DepartamentoView, basename='departamento')
-router.register(r'projeto', views.ProjetoView, basename='projetos')
-router.register(r'funcionarios',views.Funcionarios, basename='funcionarios')
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path(r'', include(router.urls)),
-    path(r'api/', include('rest_framework.urls', namespace='rest_framework'))
+    path('departamento/', views.departamento_list),
+    path('departamento/<int:pk>', views.departamento_detail),
+    path('projeto/',views.projeto_list),
+    path('projeto/<int:pk>', views.projeto_detail),
+    path('funcionarios/',views.funcionario_list),
+    path('funcionarios/<int:pk>',views.funcionario_detail),
 
 ]

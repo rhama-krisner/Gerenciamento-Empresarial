@@ -12,7 +12,7 @@ class Funcionarios(models.Model):
         ('Nenhum', 'Não Informar')
     )
 
-    nome = models.CharField(max_length=255, blank=False, null=False, unique=True)
+    nome = models.CharField(max_length=255, blank=False, null=False)
     cpf = models.IntegerField(blank=False, null=False, unique=True)
     rg = models.CharField(max_length=20, blank=False, null=False)
     sexo = models.CharField(max_length=9, choices=SEXO_CHOICE, blank=False, null=False)
@@ -25,7 +25,7 @@ class Funcionarios(models.Model):
         return self.nome  
     
     class Meta:
-        ordering = ['nome']
+        ordering = ['id']
 
 
 class Projeto(models.Model):
@@ -41,7 +41,7 @@ class Projeto(models.Model):
         return self.nome
 
     class Meta:
-        ordering = ['nome']  
+        ordering = ['id']  
 
 class Departamento(models.Model):
     nome = models.CharField(max_length=50, unique=True)
@@ -51,4 +51,4 @@ class Departamento(models.Model):
         return self.nome
 
     class Meta:
-        ordering = ['nome']
+        ordering = ['id']
