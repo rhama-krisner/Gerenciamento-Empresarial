@@ -29,6 +29,7 @@ class Funcionarios(models.Model):
 
 
 class Projeto(models.Model):
+    supervisor = models.ManyToManyField('Funcionarios', related_name='supervisor', blank=True)
     nome = models.CharField(max_length=30, unique=True, blank=False, null=False)
     horas = models.IntegerField(null=False, blank=False)
     prazo = models.DateField(blank=False, null=False)
