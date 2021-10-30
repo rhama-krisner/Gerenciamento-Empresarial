@@ -13,10 +13,10 @@ class Funcionarios(models.Model):
     )
 
     nome = models.CharField(max_length=255, blank=False, null=False)
-    cpf = models.IntegerField(blank=False, null=False, unique=True)
+    cpf = models.CharField(max_length=11, blank=False, null=False, unique=True)
     rg = models.CharField(max_length=20, blank=False, null=False)
     sexo = models.CharField(max_length=9, choices=SEXO_CHOICE, blank=False, null=False)
-    data_nascimento = models.DateField(auto_now_add=True, blank=False, null=False)
+    data_nascimento = models.DateField(auto_now_add=False, blank=False, null=False)
     cnh = models.CharField(max_length=3, choices=CNH_CHOICE, blank=False, null=False)
     salario = models.FloatField(blank=False, null=False)
     carga_horaria = models.IntegerField(blank=False, null=False)   
