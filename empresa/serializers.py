@@ -15,10 +15,11 @@ class FuncionariosSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'nome':'Não inclua números neste campo.'})
 
         if not cpfValido(data['cpf']):
-            raise serializers.ValidationError({'cpf':'CPF inválido.'})        
+            raise serializers.ValidationError({'cpf':'CPF inválido.'})  
 
-        if horaValida(data['carga_horaria']) > 40:
-            raise serializers.ValidationError({'carga_horaria':'Carga horária semanal excedida.'})
+        if salario_valido(data['salario']):
+            raise serializers.ValidationError({'salario':'Valor e salario inválido. Abaixo de um salário mínimo.'})
+
         return data
 
 class ProjetoSerializer(serializers.ModelSerializer):

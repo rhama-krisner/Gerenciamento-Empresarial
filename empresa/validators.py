@@ -9,6 +9,8 @@ def cpfValido(numero_cpf):
     cpf = CPF()
     return cpf.validate(numero_cpf)
 
-def horaValida(horas):
-    horaSemanal = 40
-    return horaSemanal
+def salario_valido(salario):
+    salario_valido = 1100.0
+    if salario < salario_valido:
+        return salario_valido
+
