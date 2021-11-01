@@ -136,6 +136,7 @@ STATIC_URL = '/static/'
 REST_FRAMEWORK = {
     'DATE_INPUT_FORMATS': ['iso-8601', '%d-%m-%Y'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10,   
+    'PAGE_SIZE': 5,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 
 }

@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Departamento, Projeto, Funcionarios
 from .validators import *
+
 class FuncionariosSerializer(serializers.ModelSerializer):
     data_nascimento = serializers.DateField(input_formats=['%d-%m-%Y'])
     class Meta:
@@ -31,7 +32,7 @@ class ProjetoSerializer(serializers.ModelSerializer):
         extra_kwargs = {'funcionarios':{'required':False}}
 
     def validate(self, data):
-        if horaValida(data['horas']) > 40:
+        if data['horas'] > 40:
             raise serializers.ValidationError({'supervisor':'Quantidade de horas acima da carga horaria do supervisor'})
         return data
         

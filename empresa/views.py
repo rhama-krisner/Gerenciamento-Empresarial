@@ -3,13 +3,18 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import Departamento, Projeto, Funcionarios
 from .serializers import DepartamentoSerializer, ProjetoSerializer, FuncionariosSerializer
+from rest_framework.pagination import PageNumberPagination
+import django_filters
+
 #Funcionarios
 @api_view(['GET','POST'])
 def funcionario_list(request):
     if request.method =='GET':
         funcionario = Funcionarios.objects.all()
-        serializer = FuncionariosSerializer(funcionario, many=True)
-        return Response(serializer.data)
+        paginator = PageNumberPagination()
+        page = paginator.paginate_queryset(funcionario, request)
+        serializer = FuncionariosSerializer(page,many=True)
+        return paginator.get_paginated_response(serializer.data)
         
     elif request.method == 'POST':
         serializer = FuncionariosSerializer(data=request.data)
@@ -45,8 +50,10 @@ def funcionario_detail(request, pk):
 def projeto_list(request):
     if request.method == 'GET':
         projeto = Projeto.objects.all()
-        serializer = ProjetoSerializer(projeto, many=True)
-        return Response(serializer.data)
+        paginator = PageNumberPagination()
+        page = paginator.paginate_queryset(projeto, request)
+        serializer = ProjetoSerializer(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
     
     elif request.method == 'POST':
         serializer = ProjetoSerializer(data=request.data)
@@ -82,8 +89,10 @@ def projeto_detail(request, pk):
 def departamento_list(request):
     if request.method == 'GET':
         departamento = Departamento.objects.all()
-        serializer = DepartamentoSerializer(departamento, many=True)
-        return Response(serializer.data)
+        paginator = PageNumberPagination()
+        page = paginator.paginate_queryset(departamento, request)
+        serializer = DepartamentoSerializer(page, many=True)
+        return paginator.get_paginated_response(serializer.data)
     
     elif request.method == 'POST':
         serializer = DepartamentoSerializer(data=request.data)
