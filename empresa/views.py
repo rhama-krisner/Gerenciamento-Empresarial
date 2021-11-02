@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from .models import Departamento, Projeto, Funcionarios
 from .serializers import DepartamentoSerializer, ProjetoSerializer, FuncionariosSerializer
 from rest_framework.pagination import PageNumberPagination
-import django_filters
 
 #Funcionarios
 @api_view(['GET','POST'])

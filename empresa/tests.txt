@@ -1,0 +1,21 @@
+from django.test import TestCase
+from empresa.models import Departamento
+
+# Create your tests here.
+
+class DepartamentoModelTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        Departamento.objects.create(nome = 'Fiscalização')
+
+    def test_name_label(self):
+        departamento = Departamento.objects.get(id=1)
+        field_label = departamento._meta.get_field('nome').verbose_name
+        self.assertEqual(field_label, 'nome')
+    def test_max_length(self):
+        departamento = Departamento.objects.get(id=1)
+        field_label = departamento._meta.get_field('nome').max_length
+        self.assertEqual(field_label, 50)
+    def test_absolute_url(self):
+        departamento = Departamento.objects.get(id=1)
+        self.assertEqual(departamento.get_absolute_url(), 'departamento/1')

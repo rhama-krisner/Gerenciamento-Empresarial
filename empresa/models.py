@@ -19,7 +19,7 @@ class Funcionarios(models.Model):
     data_nascimento = models.DateField(auto_now_add=False, blank=False, null=False)
     cnh = models.CharField(max_length=3, choices=CNH_CHOICE, blank=False, null=False)
     salario = models.FloatField(blank=False, null=False)
-    carga_horaria = models.IntegerField(default=40, blank=False, null=False)
+    carga_horaria = models.IntegerField(default=40)
 
     def __str__(self):
         return self.nome  
