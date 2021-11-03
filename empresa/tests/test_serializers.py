@@ -31,6 +31,5 @@ class FuncionariosSerializerTestCase(TestCase):
         self.assertEqual(data['sexo'], self.funcionarios.sexo)
         self.assertEqual(data['data_nascimento'], self.funcionarios.data_nascimento)
         self.assertEqual(data['cnh'], self.funcionarios.cnh)
-        self.assertEqual(data['salario'], self.funcionarios
-        .salario)
+        self.assertEqual(data['salario'], self.funcionarios.salario)
         self.assertEqual(data['carga_horaria'], self.funcionarios.carga_horaria)
