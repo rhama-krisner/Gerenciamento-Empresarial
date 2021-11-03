@@ -1,5 +1,5 @@
 from django.test import TestCase
-from empresa.models import Funcionarios
+from empresa.models import Departamento, Funcionarios, Projeto
 
 class FuncionariosModelTestCase(TestCase):
 
@@ -25,4 +25,31 @@ class FuncionariosModelTestCase(TestCase):
         self.assertEqual(self.funcionario.salario, 2500.0)
         self.assertEqual(self.funcionario.carga_horaria, 40)
 
+class ProjetoModelsTestCase(TestCase):
 
+    def setUp(self):
+        self.projeto = Projeto(
+            nome = 'Cliente',
+            horas = 50,
+            prazo = '2021-12-21',
+            horas_realizadas = 20,
+            ultimo_calculo_de_horas = 10
+        )
+    
+    def test_verification_atributos_projeto(self):
+        self.assertEqual(self.projeto.nome, 'Cliente')
+        self.assertEqual(self.projeto.horas, 50)
+        self.assertEqual(self.projeto.prazo, '2021-12-21')
+        self.assertEqual(self.projeto.horas_realizadas, 20)
+        self.assertEqual(self.projeto.ultimo_calculo_de_horas, 10)
+
+
+class DepartamentoModelTestCase(TestCase):
+
+    def setUp(self):
+        self.departamento = Departamento(
+            nome = 'Desenvolvimento'
+        )
+    
+    def test_verifica_atributos_departamento(self):
+        self.assertEqual(self.departamento.nome, 'Desenvolvimento')
