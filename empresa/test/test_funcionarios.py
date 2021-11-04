@@ -60,8 +60,6 @@ class FuncionariosTestCase(APITestCase):
             "salario": 4401.0,
             "carga_horaria": 40
         }
-        response = self.client.put('/funcionarios/1/', data=data)
-        #Aqui o teste não passa, o protocolo deveria ser 201. Por que, só Deus sabe.
-        self.assertEquals(response.status_code, status.HTTP_404_NOT_FOUND)
-        
+        response = self.client.put('/funcionarios/1', data=data)
+        self.assertEquals(response.status_code, status.HTTP_200_OK)
 
