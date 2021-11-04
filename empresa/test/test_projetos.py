@@ -1,10 +1,11 @@
 from rest_framework.test import APITestCase
-from empresa.models import Projeto
+from empresa.models import Projeto, Funcionarios
 from django.urls import reverse
 from rest_framework import status
 
 class ProjetoTestCase(APITestCase):
     def setUp(self):
+        
         self.list_projeto_url = reverse('projeto')
         self.projeto_1 = Projeto.objects.create(
             supervisor = [],
@@ -20,5 +21,3 @@ class ProjetoTestCase(APITestCase):
         """Teste para verificar a requisição GET"""
         response = self.client.get(self.list_projeto_url)
         self.assertEquals(response.status_code, status.HTTP_200_OK)
-
-    

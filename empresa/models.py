@@ -29,14 +29,14 @@ class Funcionarios(models.Model):
 
 
 class Projeto(models.Model):
-    supervisor = models.ManyToManyField('Funcionarios', related_name='supervisor', blank=True)
+    supervisor = models.ForeignKey('Funcionarios', related_name='supervisor', blank=True, on_delete=models.CASCADE)
     nome = models.CharField(max_length=30, unique=True, blank=False, null=False)
     horas = models.IntegerField(null=False, blank=False)
     prazo = models.DateField(blank=False, null=False)
     horas_realizadas = models.IntegerField(null=False, blank=False)
     ultimo_calculo_de_horas = models.IntegerField(blank=False, null=False)
 
-    funcionarios = models.ManyToManyField('Funcionarios', related_name='funcionarios', blank=True)
+    funcionarios = models.ForeignKey('Funcionarios', related_name='funcionarios', blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
